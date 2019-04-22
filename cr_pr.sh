@@ -20,9 +20,13 @@ fi
 mkdir $1
 cd $1
 touch CMakeLists.txt
-touch main.cpp
-mkdir build
 
 # creating cmake
-CMAKE_TEXT=$"project(\"$1\")\n\nadd_executable($1 main.cpp)"
+CMAKE_TEXT=$"cmake_minimum_required(VERSION 3.0.0)\nproject(\"$1\")\n\ninclude_directories(\${CMAKE_CURRENT_SOURCE_DIR}/include)\nfile(GLOB MY_SOURCES \"src/*.*\")\nadd_executable($1 \${MY_SOURCES})"
 echo  -e $CMAKE_TEXT > CMakeLists.txt
+
+mkdir src
+mkdir include
+mkdir build
+cd src
+touch main.cpp
