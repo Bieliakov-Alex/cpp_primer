@@ -3,4 +3,5 @@ project("e1.20")
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 file(GLOB MY_SOURCES "src/*.*")
+set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 add_executable(e1.20 ${MY_SOURCES})
