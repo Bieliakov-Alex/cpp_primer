@@ -22,7 +22,7 @@ cd $1
 touch CMakeLists.txt
 
 # creating cmake
-CMAKE_TEXT=$"cmake_minimum_required(VERSION 3.0.0)\nproject(\"$1\")\n\ninclude_directories(\${CMAKE_CURRENT_SOURCE_DIR}/include)\nfile(GLOB MY_SOURCES \"src/*.*\")\nset(CMAKE_EXPORT_COMPILE_COMMANDS 1)\nadd_executable($1 \${MY_SOURCES})"
+CMAKE_TEXT=$"cmake_minimum_required(VERSION 3.0.0)\nproject(\"$1\")\n\nset(CMAKE_CXX_STANDARD 11)\ninclude_directories(\${CMAKE_CURRENT_SOURCE_DIR}/include)\nfile(GLOB MY_SOURCES \"src/*.*\")\nset(CMAKE_EXPORT_COMPILE_COMMANDS 1)\nadd_executable($1 \${MY_SOURCES})"
 echo  -e $CMAKE_TEXT > CMakeLists.txt
 
 mkdir src
