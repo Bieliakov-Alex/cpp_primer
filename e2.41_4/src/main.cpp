@@ -8,24 +8,37 @@ struct Sales_data {
 };
 
 int main() {
-  Sales_data book1, book2;
+  Sales_data total;
   double price = 0.0;
-  std::cin >> book1.bookNo >> book1.units_sold >> price;
-  book1.revenue = book1.units_sold * price;
-  std::cin >> book2.bookNo >> book2.units_sold >> price;
-  book2.revenue = book2.units_sold * price;
-  if (book1.bookNo == book2.bookNo) {
-    double totalRevenue = book1.revenue + book2.revenue;
-    unsigned int totalCnt = book1.units_sold + book2.units_sold;
-    std::cout << book1.bookNo << " " << totalCnt << " " << totalRevenue << " ";
-    if (totalCnt != 0) {
-      std::cout << totalRevenue / totalCnt << std::endl;
+  if (std::cin >> total.bookNo >> total.units_sold >> price) {
+    total.revenue = total.units_sold * price;
+    Sales_data trans;
+    while (std::cin >> trans.bookNo >> trans.units_sold >> price) {
+      trans.revenue = trans.units_sold * price;
+      if (total.bookNo == trans.bookNo) {
+        total.units_sold += trans.units_sold;
+        total.revenue += trans.units_sold * price;
+      } else {
+        std::cout << total.bookNo << " " << total.units_sold << " "
+                  << total.revenue << " ";
+        if (total.units_sold != 0) {
+          std::cout << total.revenue / total.units_sold << std::endl;
+        } else {
+          std::cout << "(no sales)" << std::endl;
+        }
+        total = trans;
+      }
+    }
+    std::cout << total.bookNo << " " << total.units_sold << " " << total.revenue
+              << " ";
+    if (total.units_sold != 0) {
+      std::cout << total.revenue / total.units_sold << std::endl;
     } else {
       std::cout << "(no sales)" << std::endl;
     }
-    return 0;
   } else {
-    std::cerr << "Data must refer to the same ISBN" << std::endl;
+    std::cerr << "No data?!" << std::endl;
     return -1;
   }
+  return 0;
 }
